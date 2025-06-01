@@ -59,6 +59,11 @@ Command	Description
 
 !brag	Brags - about your current dumb points in meme style.
 
+## It is avilable in both AI form (more questions fun) and with in built text (less fun but more dumb)
+they are mentioned as:
+
+(AI) bot.py  and (Inbuilt) bot.py respectively.
+
 ## Contributing
 
 Feel free to open issues or submit pull requests to add more dumb questions, features, or improve the bot!
