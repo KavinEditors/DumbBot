@@ -1,5 +1,7 @@
 #only requires .env and update ur bot token in that
 #install requirements.txt in cmd/terminal in vsc
+#install the requirements using 'pip install -r requirements.tx
+#run in vsc terminal 'python (Inbuilt)_bot.py'
 
 import discord
 from discord.ext import commands, tasks
