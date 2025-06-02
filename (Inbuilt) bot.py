@@ -62,8 +62,8 @@ async def ask_question():
         correct_answer = random.choice(['yes', 'no'])
         answered_users.clear()
         question_count += 1
-        await channel.send(f"🧠 **Dumb Question Time!**
-{current_question} (Answer with `!yes` or `!no`)")
+await channel.send(f"""🧠 **Dumb Question Time!**
+{current_question} (Answer with `!yes` or `!no`)""")
 
 @bot.command()
 async def yes(ctx):
