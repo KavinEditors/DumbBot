@@ -1,7 +1,7 @@
 #requires .env and update ur bot token and open ai api key in that
 #install requirements.txt in cmd/terminal in vsc
 #install the requirements using 'pip install -r requirements.txt'
-#run it using 'python (AI)_bot.py' in vsc terminal
+#run it using "  python '(AI)bot.py'  " in vsc terminal
 #if cmd link to the drive and floder
 
 import discord
