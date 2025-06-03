@@ -1,7 +1,7 @@
-#only requires .env and update ur bot token in that
+#only requires .env and update your bot token in that
 #install requirements.txt in cmd/terminal in vsc
 #install the requirements using 'pip install -r requirements.tx
-#run in vsc terminal 'python (Inbuilt)_bot.py'
+#run in vsc terminal python " python '(Inbuilt)bot.py' "
 
 import discord
 from discord.ext import commands, tasks
@@ -26,26 +26,34 @@ correct_answer = None
 question_count = 0
 
 dumb_questions = [
-    "If I microwave ice, will I get fire?",
-    "Can I charge my phone in the bathtub?",
-    "If I eat a magnet, will I become magnetic?",
-    "Is water wet or is wet water?",
-    "If I scream in space, can aliens hear me?",
-    "Can I cook chicken with my laptop's heat?",
-    "If I delete System32, will my PC run faster?",
-    "Can I become invisible by closing my eyes?",
-    "If I eat glow sticks, will I glow?",
-    "Is cereal soup?",
-    "Can I get WiFi by standing on my roof?",
-    "Does holding your breath make you stronger?",
-    "Is 5G stored in your bones?",
-    "Can I upload my brain to Google Drive?",
-    "Will drinking Red Bull actually give me wings?",
-    "Can I use pizza as a face mask?",
-    "If I meow at cats enough, will they adopt me?",
-    "If I sleep in class, do I absorb knowledge passively?",
-    "Can I get fit just by thinking about the gym?",
-    "If I clap with one hand, will I time travel?"
+    "If I microwave ice, will I get fire?❄🧊",
+    "Can I charge my phone in the bathtub?🛁",
+    "If I eat a magnet, will I become magnetic?🧲",
+    "Is water wet (yes) or is wet water(No)?💦",
+    "If I scream in space, can aliens hear me?👽",
+    "Can I cook chicken with my laptop's heat?🍗",
+    "If I delete System32, will my PC run faster?💽",
+    "Can I become invisible by closing my eyes?👀",
+    "If I eat glow sticks, will I glow?🔆",
+    "Is cereal a soup?🍲",
+    "Can I get WiFi by standing on my roof?📶",
+    "Does holding your breath make you stronger?💪🏼",
+    "🌶,🍑,🍆,🍌 - SUS Right !!",                     #If u don't want, just delete this line
+    "Is Calcium stored in your bones?🦴",
+    "Can I upload my brain to Google Drive?🧠",
+    "Will drinking Red Bull actually give me wings?💸",
+    "Can I use pizza as a face mask?🎭",
+    "If I meow at cats enough, will they adopt me?🐱‍👤",
+    "If I sleep in class, do I absorb knowledge?🧠",
+    "Can I get fit just by thinking about the gym?⛹🏻‍♂️",
+    "If I clap with one hand, will I time travel?🧳",
+    "Will i get a girlfriend 👸🏻 ?",
+    "If i am a human, would u love me? 😘",
+    "Your iq is 0 🤣",
+    "My iq is = Albert Einstein ☜(ﾟヮﾟ☜)",
+    "Does chicken come from egg or egg come from chicken? 🥚",
+    "Is 2 + 2 = 4 ?🤔"
+
 ] + [f"Dumb Question #{i+21}?" for i in range(80)]
 
 @bot.event
@@ -62,8 +70,9 @@ async def ask_question():
         correct_answer = random.choice(['yes', 'no'])
         answered_users.clear()
         question_count += 1
-await channel.send(f"""🧠 **Dumb Question Time!**
+        await channel.send(f"""🧠 **Dumb Question Time!**
 {current_question} (Answer with `!yes` or `!no`)""")
+
 
 @bot.command()
 async def yes(ctx):
@@ -114,7 +123,7 @@ async def dumbhelp(ctx):
         "`!dumbjoke` – Get a painfully bad joke\n"
         "`!questioncount` – Total dumb questions asked\n"
         "`!topdumbs` – Alias for dumbboard\n"
-        "`!brag` – Brag about your dumb score\n"
+        "`!brain` – Brain about your dumb score\n"
     )
     await ctx.send(help_text)
 
@@ -139,8 +148,10 @@ async def dumbfact(ctx):
         "Octopuses have three hearts and zero friends.",
         "You can't hum while holding your nose (try it).",
         "A group of flamingos is called a 'flamboyance'.",
-        "Your feet have about 250,000 sweat glands. Ew."
-    ]
+        "Your feet have about 250,000 sweat glands. Ew.",
+        "My iq is -5000, Whats yours",
+        "Dumbbot was created by @KavinEditors. For new updates and new bots visit 'https://github.com/KavinEditors'"
+    ]  
     await ctx.send(f"💡 Dumb Fact: {random.choice(facts)}")
 
 @bot.command()
@@ -178,9 +189,8 @@ async def topdumbs(ctx):
     await dumbboard(ctx)
 
 @bot.command()
-async def brag(ctx):
+async def brain(ctx):
     score = scores.get(ctx.author.id, 0)
     await ctx.send(f"💪 {ctx.author.mention} has {score} dumb points and isn't afraid to flaunt it!")
 
 bot.run(TOKEN)
-
