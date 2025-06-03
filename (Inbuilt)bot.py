@@ -14,17 +14,19 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
 
+# Set up bot with necessary intents
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
-# Scoreboard and answered tracking
+# Score tracking and game state
 scores = {}
 answered_users = set()
 current_question = None
 correct_answer = None
 question_count = 0
 
+# Dumb questions list
 dumb_questions = [
     "If I microwave ice, will I get fire?❄🧊",
     "Can I charge my phone in the bathtub?🛁",
@@ -38,7 +40,7 @@ dumb_questions = [
     "Is cereal a soup?🍲",
     "Can I get WiFi by standing on my roof?📶",
     "Does holding your breath make you stronger?💪🏼",
-    "🌶,🍑,🍆,🍌 - SUS Right !!",                     #If u don't want, just delete this line
+    "🌶,🍑,🍆,🍌 - SUS Right !!",
     "Is Calcium stored in your bones?🦴",
     "Can I upload my brain to Google Drive?🧠",
     "Will drinking Red Bull actually give me wings?💸",
@@ -47,24 +49,18 @@ dumb_questions = [
     "If I sleep in class, do I absorb knowledge?🧠",
     "Can I get fit just by thinking about the gym?⛹🏻‍♂️",
     "If I clap with one hand, will I time travel?🧳",
-    "Will i get a girlfriend 👸🏻 ?",
-    "If i am a human, would u love me? 😘",
-    "Your iq is 0 🤣",
-    "My iq is = Albert Einstein ☜(ﾟヮﾟ☜)",
+    "Will I get a girlfriend 👸🏻 ?",
+    "If I am a human, would you love me? 😘",
+    "Your IQ is 0 🤣",
+    "My IQ is = Albert Einstein ☜(ﾟヮﾟ☜)",
     "Does chicken come from egg or egg come from chicken? 🥚",
     "Is 2 + 2 = 4 ?🤔"
+] + [f"Dumb Question #{i+27}?" for i in range(80)]  # Adds 80 more dummy questions
 
-] + [f"Dumb Question #{i+21}?" for i in range(80)]
-
-@bot.event
-async def on_ready():
-    print(f'Logged in as {bot.user.name}')
-    ask_question.start()
-
-@tasks.loop(minutes=10)
-async def ask_question():
+# Helper function to send a dumb question
+async def send_dumb_question():
     global current_question, correct_answer, answered_users, question_count
-    channel = discord.utils.get(bot.get_all_channels(), name="general")  # Change to your channel name
+    channel = discord.utils.get(bot.get_all_channels(), name="general")  # Change this to your target channel
     if channel:
         current_question = random.choice(dumb_questions)
         correct_answer = random.choice(['yes', 'no'])
@@ -73,7 +69,18 @@ async def ask_question():
         await channel.send(f"""🧠 **Dumb Question Time!**
 {current_question} (Answer with `!yes` or `!no`)""")
 
+# Bot is ready
+@bot.event
+async def on_ready():
+    print(f'Logged in as {bot.user.name}')
+    ask_question.start()
 
+# Task to ask a question every 10 minutes
+@tasks.loop(minutes=10)
+async def ask_question():
+    await send_dumb_question()
+
+# Handle answers
 @bot.command()
 async def yes(ctx):
     await process_answer(ctx, 'yes')
@@ -97,6 +104,7 @@ async def process_answer(ctx, answer):
     else:
         await ctx.send(f"❌ {ctx.author.mention} is dumb. Better luck next time!")
 
+# Commands
 @bot.command()
 async def dumbboard(ctx):
     if not scores:
@@ -149,9 +157,9 @@ async def dumbfact(ctx):
         "You can't hum while holding your nose (try it).",
         "A group of flamingos is called a 'flamboyance'.",
         "Your feet have about 250,000 sweat glands. Ew.",
-        "My iq is -5000, Whats yours",
-        "Dumbbot was created by @KavinEditors. For new updates and new bots visit 'https://github.com/KavinEditors'"
-    ]  
+        "My IQ is -5000, what's yours?",
+        "DumbBot was created by @KavinEditors. For updates visit https://github.com/KavinEditors"
+    ]
     await ctx.send(f"💡 Dumb Fact: {random.choice(facts)}")
 
 @bot.command()
@@ -160,7 +168,7 @@ async def memoryloss(ctx):
 
 @bot.command()
 async def dumbquestion(ctx):
-    await ask_question()
+    await send_dumb_question()
 
 @bot.command()
 async def whoiswinning(ctx):
@@ -193,4 +201,5 @@ async def brain(ctx):
     score = scores.get(ctx.author.id, 0)
     await ctx.send(f"💪 {ctx.author.mention} has {score} dumb points and isn't afraid to flaunt it!")
 
+# Start the bot
 bot.run(TOKEN)
