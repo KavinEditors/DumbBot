@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
-GUILD_ID = discord.Object(id=YOUR_GUILD_ID_HERE)  # Replace with your actual guild ID
+GUILD_ID = discord.Object(id=1355884348192063548)  # Replace with your actual guild ID
 
 # Set up bot with necessary intents
 intents = discord.Intents.default()
@@ -90,9 +90,7 @@ jokes = [
     "How do you organize a space party? You planet.",
     "What do you get when you cross a snowman and a dog? Frostbite.",
     "I used to work for a blanket factory, but it folded.",
-    "Why did the tomato turn red? Because it saw the salad dressing!",
-
-    "Dumb Joke #90: This is a really dumb joke!"
+    "Why did the tomato turn red? Because it saw the salad dressing!"
 ]  # Total: 90 jokes
 
 # Tasks
@@ -202,3 +200,4 @@ async def topdumbs(interaction: discord.Interaction):
     await dumbboard(interaction)
 
 bot.run(TOKEN)
+
